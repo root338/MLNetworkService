@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="UOU-6r-b4G">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Root View Controller-->
+        <scene sceneID="EFD-C8-gmM">
+            <objects>
+                <tableViewController id="S7E-IF-6XG" customClass="TableViewController" customModule="MLNetworkService" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="tKL-i4-t6n">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskTableViewCell" rowHeight="91" id="ZLd-1g-ouZ" customClass="TaskTableViewCell" customModule="MLNetworkService" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="91"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZLd-1g-ouZ" id="H9C-7l-MGR">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="91"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XoL-mh-yju">
+                                            <rect key="frame" x="8" y="35" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="bCu-LU-a21">
+                                            <rect key="frame" x="0.0" y="87" width="414" height="4"/>
+                                        </progressView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nUV-nF-9Eb">
+                                            <rect key="frame" x="346" y="0.0" width="60" height="91"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="60" id="Qgt-4z-Hj6"/>
+                                            </constraints>
+                                            <state key="normal" title="下载"/>
+                                            <state key="selected" title="暂停"/>
+                                            <connections>
+                                                <action selector="handleDownload:" destination="ZLd-1g-ouZ" eventType="touchUpInside" id="cQe-QB-egY"/>
+                                            </connections>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BvJ-fO-hIs">
+                                            <rect key="frame" x="70" y="40" width="33" height="16"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="BvJ-fO-hIs" firstAttribute="bottom" secondItem="XoL-mh-yju" secondAttribute="bottom" id="4CB-T6-zWW"/>
+                                        <constraint firstItem="nUV-nF-9Eb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="XoL-mh-yju" secondAttribute="trailing" constant="8" symbolic="YES" id="7O0-6d-ciu"/>
+                                        <constraint firstItem="XoL-mh-yju" firstAttribute="centerY" secondItem="H9C-7l-MGR" secondAttribute="centerY" id="Dye-uw-0Q8"/>
+                                        <constraint firstItem="bCu-LU-a21" firstAttribute="leading" secondItem="H9C-7l-MGR" secondAttribute="leading" id="Lh7-bQ-Y26"/>
+                                        <constraint firstItem="XoL-mh-yju" firstAttribute="leading" secondItem="H9C-7l-MGR" secondAttribute="leading" constant="8" id="PPg-OM-wPc"/>
+                                        <constraint firstAttribute="bottom" secondItem="bCu-LU-a21" secondAttribute="bottom" id="WwR-Qx-lgm"/>
+                                        <constraint firstItem="nUV-nF-9Eb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="BvJ-fO-hIs" secondAttribute="trailing" constant="8" symbolic="YES" id="YXC-2k-683"/>
+                                        <constraint firstAttribute="trailing" secondItem="bCu-LU-a21" secondAttribute="trailing" id="cvv-4O-md0"/>
+                                        <constraint firstAttribute="bottom" secondItem="nUV-nF-9Eb" secondAttribute="bottom" id="pZv-Cs-PC2"/>
+                                        <constraint firstItem="BvJ-fO-hIs" firstAttribute="leading" secondItem="XoL-mh-yju" secondAttribute="trailing" constant="20" id="pdu-rz-oSK"/>
+                                        <constraint firstAttribute="trailing" secondItem="nUV-nF-9Eb" secondAttribute="trailing" constant="8" id="qCk-8u-YUB"/>
+                                        <constraint firstItem="nUV-nF-9Eb" firstAttribute="top" secondItem="H9C-7l-MGR" secondAttribute="top" id="tqG-dV-8wh"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="downloadSpeedLabel" destination="BvJ-fO-hIs" id="cQA-xM-O1g"/>
+                                    <outlet property="nameLabel" destination="XoL-mh-yju" id="HXi-Bm-aQO"/>
+                                    <outlet property="progressView" destination="bCu-LU-a21" id="dV4-wa-ABn"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="S7E-IF-6XG" id="bzW-NV-lLx"/>
+                            <outlet property="delegate" destination="S7E-IF-6XG" id="i0H-FB-5Bz"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Root View Controller" id="cjG-oT-6eH"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZdB-qz-LAE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1489.8550724637682" y="-331.47321428571428"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="qnu-rr-RV3">
+            <objects>
+                <navigationController id="UOU-6r-b4G" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Cym-54-hhB">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="S7E-IF-6XG" kind="relationship" relationship="rootViewController" id="htn-ys-Hht"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qlc-Jf-q6X" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="600" y="-331"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

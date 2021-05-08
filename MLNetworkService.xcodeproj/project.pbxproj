@@ -1,0 +1,656 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		18FE75E5264669BB00342339 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE75E4264669BB00342339 /* AppDelegate.swift */; };
+		18FE75E7264669BB00342339 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE75E6264669BB00342339 /* SceneDelegate.swift */; };
+		18FE75EC264669BB00342339 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18FE75EA264669BB00342339 /* Main.storyboard */; };
+		18FE75EE264669C100342339 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18FE75ED264669C100342339 /* Assets.xcassets */; };
+		18FE75F1264669C100342339 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18FE75EF264669C100342339 /* LaunchScreen.storyboard */; };
+		18FE75FC264669C200342339 /* MLDownloadServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE75FB264669C200342339 /* MLDownloadServiceTests.swift */; };
+		18FE7607264669C200342339 /* MLDownloadServiceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE7606264669C200342339 /* MLDownloadServiceUITests.swift */; };
+		18FE762226466A6D00342339 /* MLNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE762126466A6D00342339 /* MLNetworkService.swift */; };
+		18FE762826466B2700342339 /* MLNetworkTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE762726466B2700342339 /* MLNetworkTask.swift */; };
+		18FE762D26466B5100342339 /* MLNetworkOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE762C26466B5000342339 /* MLNetworkOperation.swift */; };
+		18FE763226466EDC00342339 /* MLNetworkTaskInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE763126466EDC00342339 /* MLNetworkTaskInfo.swift */; };
+		18FE763A264679AB00342339 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE7639264679AB00342339 /* TableViewController.swift */; };
+		18FE764026467A0500342339 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE763F26467A0500342339 /* TaskTableViewCell.swift */; };
+		18FE764926467A2100342339 /* TaskItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE764826467A2100342339 /* TaskItem.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		18FE75F8264669C200342339 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 18FE75D9264669BB00342339 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 18FE75E0264669BB00342339;
+			remoteInfo = MLDownloadService;
+		};
+		18FE7603264669C200342339 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 18FE75D9264669BB00342339 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 18FE75E0264669BB00342339;
+			remoteInfo = MLDownloadService;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		18FE75E1264669BB00342339 /* MLNetworkService.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MLNetworkService.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		18FE75E4264669BB00342339 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		18FE75E6264669BB00342339 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		18FE75EB264669BB00342339 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		18FE75ED264669C100342339 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		18FE75F0264669C100342339 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		18FE75F2264669C100342339 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		18FE75F7264669C200342339 /* MLNetworkServiceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MLNetworkServiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		18FE75FB264669C200342339 /* MLDownloadServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLDownloadServiceTests.swift; sourceTree = "<group>"; };
+		18FE75FD264669C200342339 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		18FE7602264669C200342339 /* MLNetworkServiceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MLNetworkServiceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		18FE7606264669C200342339 /* MLDownloadServiceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLDownloadServiceUITests.swift; sourceTree = "<group>"; };
+		18FE7608264669C200342339 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		18FE762126466A6D00342339 /* MLNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLNetworkService.swift; sourceTree = "<group>"; };
+		18FE762726466B2700342339 /* MLNetworkTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLNetworkTask.swift; sourceTree = "<group>"; };
+		18FE762C26466B5000342339 /* MLNetworkOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLNetworkOperation.swift; sourceTree = "<group>"; };
+		18FE763126466EDC00342339 /* MLNetworkTaskInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLNetworkTaskInfo.swift; sourceTree = "<group>"; };
+		18FE7639264679AB00342339 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		18FE763F26467A0500342339 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
+		18FE764826467A2100342339 /* TaskItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItem.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		18FE75DE264669BB00342339 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18FE75F4264669C200342339 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18FE75FF264669C200342339 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		18FE75D8264669BB00342339 = {
+			isa = PBXGroup;
+			children = (
+				18FE762026466A4D00342339 /* MLNetworkService */,
+				18FE75E3264669BB00342339 /* MLNetworkServiceDemo */,
+				18FE75FA264669C200342339 /* MLDownloadServiceTests */,
+				18FE7605264669C200342339 /* MLDownloadServiceUITests */,
+				18FE75E2264669BB00342339 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		18FE75E2264669BB00342339 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				18FE75E1264669BB00342339 /* MLNetworkService.app */,
+				18FE75F7264669C200342339 /* MLNetworkServiceTests.xctest */,
+				18FE7602264669C200342339 /* MLNetworkServiceUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		18FE75E3264669BB00342339 /* MLNetworkServiceDemo */ = {
+			isa = PBXGroup;
+			children = (
+				18FE75E4264669BB00342339 /* AppDelegate.swift */,
+				18FE75E6264669BB00342339 /* SceneDelegate.swift */,
+				18FE7639264679AB00342339 /* TableViewController.swift */,
+				18FE764726467A0F00342339 /* Models */,
+				18FE763E264679E300342339 /* Views */,
+				18FE75EA264669BB00342339 /* Main.storyboard */,
+				18FE75ED264669C100342339 /* Assets.xcassets */,
+				18FE75EF264669C100342339 /* LaunchScreen.storyboard */,
+				18FE75F2264669C100342339 /* Info.plist */,
+			);
+			path = MLNetworkServiceDemo;
+			sourceTree = "<group>";
+		};
+		18FE75FA264669C200342339 /* MLDownloadServiceTests */ = {
+			isa = PBXGroup;
+			children = (
+				18FE75FB264669C200342339 /* MLDownloadServiceTests.swift */,
+				18FE75FD264669C200342339 /* Info.plist */,
+			);
+			path = MLDownloadServiceTests;
+			sourceTree = "<group>";
+		};
+		18FE7605264669C200342339 /* MLDownloadServiceUITests */ = {
+			isa = PBXGroup;
+			children = (
+				18FE7606264669C200342339 /* MLDownloadServiceUITests.swift */,
+				18FE7608264669C200342339 /* Info.plist */,
+			);
+			path = MLDownloadServiceUITests;
+			sourceTree = "<group>";
+		};
+		18FE762026466A4D00342339 /* MLNetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				18FE762626466B0A00342339 /* Model */,
+				18FE762126466A6D00342339 /* MLNetworkService.swift */,
+			);
+			path = MLNetworkService;
+			sourceTree = "<group>";
+		};
+		18FE762626466B0A00342339 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				18FE762726466B2700342339 /* MLNetworkTask.swift */,
+				18FE763126466EDC00342339 /* MLNetworkTaskInfo.swift */,
+				18FE762C26466B5000342339 /* MLNetworkOperation.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		18FE763E264679E300342339 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				18FE763F26467A0500342339 /* TaskTableViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		18FE764726467A0F00342339 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				18FE764826467A2100342339 /* TaskItem.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		18FE75E0264669BB00342339 /* MLNetworkService */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 18FE760B264669C200342339 /* Build configuration list for PBXNativeTarget "MLNetworkService" */;
+			buildPhases = (
+				18FE75DD264669BB00342339 /* Sources */,
+				18FE75DE264669BB00342339 /* Frameworks */,
+				18FE75DF264669BB00342339 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MLNetworkService;
+			productName = MLDownloadService;
+			productReference = 18FE75E1264669BB00342339 /* MLNetworkService.app */;
+			productType = "com.apple.product-type.application";
+		};
+		18FE75F6264669C200342339 /* MLNetworkServiceTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 18FE760E264669C200342339 /* Build configuration list for PBXNativeTarget "MLNetworkServiceTests" */;
+			buildPhases = (
+				18FE75F3264669C200342339 /* Sources */,
+				18FE75F4264669C200342339 /* Frameworks */,
+				18FE75F5264669C200342339 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				18FE75F9264669C200342339 /* PBXTargetDependency */,
+			);
+			name = MLNetworkServiceTests;
+			productName = MLDownloadServiceTests;
+			productReference = 18FE75F7264669C200342339 /* MLNetworkServiceTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		18FE7601264669C200342339 /* MLNetworkServiceUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 18FE7611264669C200342339 /* Build configuration list for PBXNativeTarget "MLNetworkServiceUITests" */;
+			buildPhases = (
+				18FE75FE264669C200342339 /* Sources */,
+				18FE75FF264669C200342339 /* Frameworks */,
+				18FE7600264669C200342339 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				18FE7604264669C200342339 /* PBXTargetDependency */,
+			);
+			name = MLNetworkServiceUITests;
+			productName = MLDownloadServiceUITests;
+			productReference = 18FE7602264669C200342339 /* MLNetworkServiceUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		18FE75D9264669BB00342339 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1240;
+				LastUpgradeCheck = 1240;
+				TargetAttributes = {
+					18FE75E0264669BB00342339 = {
+						CreatedOnToolsVersion = 12.4;
+					};
+					18FE75F6264669C200342339 = {
+						CreatedOnToolsVersion = 12.4;
+						TestTargetID = 18FE75E0264669BB00342339;
+					};
+					18FE7601264669C200342339 = {
+						CreatedOnToolsVersion = 12.4;
+						TestTargetID = 18FE75E0264669BB00342339;
+					};
+				};
+			};
+			buildConfigurationList = 18FE75DC264669BB00342339 /* Build configuration list for PBXProject "MLNetworkService" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 18FE75D8264669BB00342339;
+			productRefGroup = 18FE75E2264669BB00342339 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				18FE75E0264669BB00342339 /* MLNetworkService */,
+				18FE75F6264669C200342339 /* MLNetworkServiceTests */,
+				18FE7601264669C200342339 /* MLNetworkServiceUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		18FE75DF264669BB00342339 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18FE75F1264669C100342339 /* LaunchScreen.storyboard in Resources */,
+				18FE75EE264669C100342339 /* Assets.xcassets in Resources */,
+				18FE75EC264669BB00342339 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18FE75F5264669C200342339 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18FE7600264669C200342339 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		18FE75DD264669BB00342339 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18FE764026467A0500342339 /* TaskTableViewCell.swift in Sources */,
+				18FE762226466A6D00342339 /* MLNetworkService.swift in Sources */,
+				18FE763A264679AB00342339 /* TableViewController.swift in Sources */,
+				18FE762D26466B5100342339 /* MLNetworkOperation.swift in Sources */,
+				18FE764926467A2100342339 /* TaskItem.swift in Sources */,
+				18FE75E5264669BB00342339 /* AppDelegate.swift in Sources */,
+				18FE75E7264669BB00342339 /* SceneDelegate.swift in Sources */,
+				18FE762826466B2700342339 /* MLNetworkTask.swift in Sources */,
+				18FE763226466EDC00342339 /* MLNetworkTaskInfo.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18FE75F3264669C200342339 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18FE75FC264669C200342339 /* MLDownloadServiceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18FE75FE264669C200342339 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18FE7607264669C200342339 /* MLDownloadServiceUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		18FE75F9264669C200342339 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 18FE75E0264669BB00342339 /* MLNetworkService */;
+			targetProxy = 18FE75F8264669C200342339 /* PBXContainerItemProxy */;
+		};
+		18FE7604264669C200342339 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 18FE75E0264669BB00342339 /* MLNetworkService */;
+			targetProxy = 18FE7603264669C200342339 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		18FE75EA264669BB00342339 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				18FE75EB264669BB00342339 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		18FE75EF264669C100342339 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				18FE75F0264669C100342339 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		18FE7609264669C200342339 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		18FE760A264669C200342339 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		18FE760C264669C200342339 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 29W9687J6A;
+				INFOPLIST_FILE = MLNetworkServiceDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.YM.MLNetworkService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		18FE760D264669C200342339 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 29W9687J6A;
+				INFOPLIST_FILE = MLNetworkServiceDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.YM.MLNetworkService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		18FE760F264669C200342339 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 29W9687J6A;
+				INFOPLIST_FILE = MLDownloadServiceTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.YM.MLDownloadServiceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MLNetworkService.app/MLNetworkService";
+			};
+			name = Debug;
+		};
+		18FE7610264669C200342339 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 29W9687J6A;
+				INFOPLIST_FILE = MLDownloadServiceTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.YM.MLDownloadServiceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MLNetworkService.app/MLNetworkService";
+			};
+			name = Release;
+		};
+		18FE7612264669C200342339 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 29W9687J6A;
+				INFOPLIST_FILE = MLDownloadServiceUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.YM.MLDownloadServiceUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = MLDownloadService;
+			};
+			name = Debug;
+		};
+		18FE7613264669C200342339 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 29W9687J6A;
+				INFOPLIST_FILE = MLDownloadServiceUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.YM.MLDownloadServiceUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = MLDownloadService;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		18FE75DC264669BB00342339 /* Build configuration list for PBXProject "MLNetworkService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				18FE7609264669C200342339 /* Debug */,
+				18FE760A264669C200342339 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		18FE760B264669C200342339 /* Build configuration list for PBXNativeTarget "MLNetworkService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				18FE760C264669C200342339 /* Debug */,
+				18FE760D264669C200342339 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		18FE760E264669C200342339 /* Build configuration list for PBXNativeTarget "MLNetworkServiceTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				18FE760F264669C200342339 /* Debug */,
+				18FE7610264669C200342339 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		18FE7611264669C200342339 /* Build configuration list for PBXNativeTarget "MLNetworkServiceUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				18FE7612264669C200342339 /* Debug */,
+				18FE7613264669C200342339 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 18FE75D9264669BB00342339 /* Project object */;
+}
