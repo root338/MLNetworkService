@@ -47,8 +47,10 @@ class TableViewController: UITableViewController {
         var task = item.task
         task.progress = {
             (bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) in
-            cell.downloadSpeedLabel?.text = "\(bytesWritten / 1024) kB"
-            cell.progressView.progress = Float(totalBytesWritten) / Float(totalBytesExpectedToWrite)
+            DispatchQueue.main.async {
+                cell.downloadSpeedLabel?.text = "\(bytesWritten / 1024) kB"
+                cell.progressView.progress = Float(totalBytesWritten) / Float(totalBytesExpectedToWrite)
+            }
         }
         cell.didChangeDownloadState = {
             (isDownload) in

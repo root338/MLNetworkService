@@ -148,6 +148,7 @@
 			children = (
 				18FE762626466B0A00342339 /* Model */,
 				18FE762126466A6D00342339 /* MLNetworkService.swift */,
+				18FE762726466B2700342339 /* MLNetworkTask.swift */,
 			);
 			path = MLNetworkService;
 			sourceTree = "<group>";
@@ -155,7 +156,6 @@
 		18FE762626466B0A00342339 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				18FE762726466B2700342339 /* MLNetworkTask.swift */,
 				18FE763126466EDC00342339 /* MLNetworkTaskInfo.swift */,
 				18FE762C26466B5000342339 /* MLNetworkOperation.swift */,
 			);

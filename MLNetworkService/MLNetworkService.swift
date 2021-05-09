@@ -8,19 +8,17 @@
 import Foundation
 
 public class MLNetworkService: NSObject {
-    lazy var session: URLSession = {
+    private lazy var session: URLSession = {
         let session = URLSession(configuration: URLSessionConfiguration.default, delegate: self, delegateQueue: nil)
         return session
     }()
-    
-    lazy var operationQueue: OperationQueue = {
+    private lazy var operationQueue: OperationQueue = {
         let queue = OperationQueue()
         queue.maxConcurrentOperationCount = 3
         return queue
     }()
-    lazy var runningOperationSet: [Int: MLNetworkOperation] = [:]
-    lazy var waitOperationSet: [Int: MLNetworkOperation] = [:]
-    
+    private lazy var runningOperationSet: [Int: MLNetworkOperation] = [:]
+    private lazy var waitOperationSet: [Int: MLNetworkOperation] = [:]
 }
 
 public extension MLNetworkService {
@@ -30,7 +28,8 @@ public extension MLNetworkService {
         let task = session.downloadTask(with: url)
         let opertion = MLNetworkOperation(task: task)
         opertion.delegate = self
-        waitOperationSet[task.taskIdentifier] = opertion
+//        waitOperationSet[task.taskIdentifier] = opertion
+        operationQueue.addOperation(opertion)
         return opertion.getNewTask()
     }
     func addDownloadTaskAndResume(url: URL) -> MLNetworkTask {
@@ -78,6 +77,7 @@ extension MLNetworkService: MLNetworkOperationDelegate {
     }
     
     func ready(operation: MLNetworkOperation) {
+        
         waitOperationSet.removeValue(forKey: operation.taskIdentifier)
         operationQueue.addOperation(operation)
     }

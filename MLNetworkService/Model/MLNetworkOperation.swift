@@ -11,6 +11,7 @@ protocol MLNetworkOperationDelegate: NSObjectProtocol {
     func ready(operation: MLNetworkOperation)
     func didStart(operation: MLNetworkOperation)
     func didCancel(operation: MLNetworkOperation)
+    
 }
 
 class MLNetworkOperation: Operation {
@@ -32,12 +33,11 @@ class MLNetworkOperation: Operation {
     private lazy var tasks = [MLNetworkTask]()
     private var resumeCount: UInt = 0 {
         didSet {
-            if state == .completed { return }
-            state = resumeCount > 0 ? .ready : (isSuspend ? .suspend : .cancel)
+            change(state: resumeCount > 0 ? .ready : (isSuspend ? .suspend : .cancel))
         }
     }
     /// 是否挂起，暂停
-    private var isSuspend: Bool { suspendCount == 0 }
+    private var isSuspend: Bool { resumeCount == 0 && suspendCount > 0 }
     private var suspendCount: UInt = 0 {
         didSet {
             if suspendCount != oldValue {
@@ -46,18 +46,41 @@ class MLNetworkOperation: Operation {
         }
     }
     private var state: State = .suspend {
-        didSet {
-            if (state == oldValue) { return }
-            switch state {
-            case .ready:
-                delegate?.ready(operation: self)
-            case .running: break
-            case .suspend:
-                suspend()
-            case .cancel:
-                cancel()
-            case .completed: break
+        willSet {
+            if state == newValue { return }
+            if newValue == .ready || ready(state: state) != ready(state: newValue) {
+                self.willChangeValue(for: \MLNetworkOperation.isReady)
             }
+            switch newValue {
+            case .running:
+                self.willChangeValue(for: \MLNetworkOperation.isExecuting)
+            case .suspend:
+                self.willChangeValue(for: \MLNetworkOperation.isExecuting)
+            case .cancel:
+                self.willChangeValue(for: \MLNetworkOperation.isCancelled)
+            case .completed:
+                self.willChangeValue(for: \MLNetworkOperation.isFinished)
+            case .ready:break
+            }
+            
+        }
+        didSet {
+            if state == oldValue { return }
+            if state == .ready || ready(state: state) != ready(state: oldValue) {
+                self.didChangeValue(for: \MLNetworkOperation.isReady)
+            }
+            switch state {
+            case .running:
+                self.didChangeValue(for: \MLNetworkOperation.isExecuting)
+            case .suspend:
+                self.didChangeValue(for: \MLNetworkOperation.isExecuting)
+            case .cancel:
+                self.didChangeValue(for: \MLNetworkOperation.isCancelled)
+            case .completed:
+                self.didChangeValue(for: \MLNetworkOperation.isFinished)
+            case .ready: break
+            }
+            
         }
     }
     private var progressMonitorCount: Int = 0
@@ -96,12 +119,15 @@ extension MLNetworkOperation: MLNetworkTaskInfoDelegate {
         }
     }
     func resume(task: MLNetworkTaskInfo) {
+        if state == .completed { return }
         resumeCount += 1
     }
     func suspend(task: MLNetworkTaskInfo) {
+        if state == .completed { return }
         suspendCount += 1
     }
     func cancel(task: MLNetworkTaskInfo) {
+        if state == .completed { return }
         resumeCount -= 1
     }
     func task(_ task: MLNetworkTaskInfo, progressMonitorDidChange isEnable: Bool) {
@@ -116,16 +142,14 @@ extension MLNetworkOperation: MLNetworkTaskInfoDelegate {
 //MARK:- Status Control
 extension MLNetworkOperation {
     
-    override var isCancelled: Bool { return state == .cancel || task.state == .canceling }
-    override var isFinished: Bool { return task.state == .completed }
+    override var isExecuting: Bool { return state == .running }
+    override var isReady: Bool { return super.isReady && (state != .suspend || resumeCount > 0) }
+    override var isCancelled: Bool { return state == .cancel }
+    override var isFinished: Bool { return state == .completed }
     
     override func start() {
-        if state != .ready { return }
-        let state = task.state
-        if state == .canceling || state == .completed || state == .running
-            || !isReady {
-            return
-        }
+        if !isReady { return }
+        state = .running
         task.resume()
         delegate?.didStart(operation: self)
     }
@@ -145,4 +169,26 @@ extension MLNetworkOperation {
         delegate?.didCancel(operation: self)
     }
     
+}
+
+private extension MLNetworkOperation {
+    
+    func change(state: State) {
+        if (state == self.state) { return }
+        self.state = state
+        switch state {
+        case .ready:
+            break
+//            delegate?.ready(operation: self)
+        case .running: break
+        case .suspend:
+            suspend()
+        case .cancel:
+            cancel()
+        case .completed: break
+        }
+    }
+    func ready(state: State) -> Bool {
+        return super.isReady && (state != .suspend || resumeCount > 0)
+    }
 }
