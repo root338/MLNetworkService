@@ -28,7 +28,6 @@ class MLNetworkTaskInfo: NSObject, MLNetworkTask {
             }
         }
     }
-    
     weak var delegate: MLNetworkTaskInfoDelegate?
     
     init(identifier: String, request: URLRequest?) {
@@ -37,8 +36,34 @@ class MLNetworkTaskInfo: NSObject, MLNetworkTask {
         super.init()
     }
     
-    var state: MLNetworkTaskState { delegate?.taskState ?? .suspend }
-    func resume() { delegate?.resume(task: self) }
-    func suspend() { delegate?.suspend(task: self) }
-    func cancel() { delegate?.cancel(task: self) }
+    private(set) var isAutoChange = true
+    var state = MLNetworkTaskState.suspend
+    func resume() {
+        if state != .suspend { return }
+        guard let state = delegate?.taskState else { return }
+        if state == .completed || state == .cancel {
+            self.state = state
+            return
+        }
+        delegate?.resume(task: self)
+        self.state = .running
+        isAutoChange = false
+    }
+    func suspend() {
+        if state != .running { return }
+        guard let state = delegate?.taskState else { return }
+        if state == .completed || state == .cancel {
+            self.state = state
+            return
+        }
+        delegate?.suspend(task: self)
+        self.state = .suspend
+        isAutoChange = false
+    }
+    func cancel() {
+        if state != .running { return }
+        delegate?.cancel(task: self)
+        state = .cancel
+        isAutoChange = false
+    }
 }

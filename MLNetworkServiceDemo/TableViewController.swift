@@ -11,7 +11,8 @@ class TableViewController: UITableViewController {
     
     lazy var taskList: [TaskItem] = {
         return [
-            TaskItem(name: "任务1", task: service.addDownloadTask(url: URL(string: "https://dl.motrix.app/release/Motrix-1.5.15.dmg")!))
+            TaskItem(name: "任务1", task: service.addDownloadTask(url: URL(string: "https://dl.motrix.app/release/Motrix-1.5.15.dmg")!)),
+            TaskItem(name: "任务2", task: service.addDownloadTask(url: URL(string: "https://dl.motrix.app/release/Motrix-1.5.15.dmg")!)),
         ]
     }()
     lazy var service = MLNetworkService()

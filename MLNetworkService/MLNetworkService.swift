@@ -14,7 +14,7 @@ public class MLNetworkService: NSObject {
     }()
     private lazy var operationQueue: OperationQueue = {
         let queue = OperationQueue()
-        queue.maxConcurrentOperationCount = 3
+        queue.maxConcurrentOperationCount = 1
         return queue
     }()
     private lazy var runningOperationSet: [Int: MLNetworkOperation] = [:]
@@ -47,12 +47,16 @@ extension MLNetworkService: URLSessionDownloadDelegate {
     //MARK:- URLSessionTaskDelegate
     
     public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        print("\(task) 下载失败 \(error?.localizedDescription ?? "没有错误信息")")
+        guard let error = error else { return }
+        print("\(task) 下载失败 \(error.localizedDescription)")
+        guard let operation = runningOperationSet[task.taskIdentifier] else { return }
+        operation.finish(result: .failure(error))
     }
     
     //MARK:- URLSessionDownloadDelegate
     public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
-        
+        guard let operation = runningOperationSet[downloadTask.taskIdentifier] else { return }
+        operation.finish(result: .success(location))
     }
     public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
         print("bytesWritten: \(bytesWritten), totalBytesWritten: \(totalBytesWritten), totalBytesExpectedToWrite: \(totalBytesExpectedToWrite)")
@@ -61,24 +65,28 @@ extension MLNetworkService: URLSessionDownloadDelegate {
         }
     }
     public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didResumeAtOffset fileOffset: Int64, expectedTotalBytes: Int64) {
-        
+        print("")
     }
 }
 
 extension MLNetworkService: MLNetworkOperationDelegate {
     
     //MARK:- MLNetworkOperationDelegate
+    func didIsRead(operation: MLNetworkOperation) -> Bool {
+        guard let operation = waitOperationSet.removeValue(forKey: operation.taskIdentifier) else { return false }
+        defer {
+            operationQueue.addOperation(operation)
+        }
+        return true
+    }
     func didStart(operation: MLNetworkOperation) {
         runningOperationSet[operation.taskIdentifier] = operation
     }
-    
-    func didCancel(operation: MLNetworkOperation) {
-        runningOperationSet.removeValue(forKey: operation.taskIdentifier)
-    }
-    
-    func ready(operation: MLNetworkOperation) {
-        
-        waitOperationSet.removeValue(forKey: operation.taskIdentifier)
-        operationQueue.addOperation(operation)
+    func didCancel(operation: MLNetworkOperation, isSuspend: Bool) {
+        guard let op = runningOperationSet.removeValue(forKey: operation.taskIdentifier) else { return }
+        if isSuspend {
+            waitOperationSet[operation.taskIdentifier] = operation
+            op.isExistedQueue = false
+        }
     }
 }

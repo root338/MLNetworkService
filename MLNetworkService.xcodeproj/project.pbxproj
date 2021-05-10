@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18F95FC62649028E00955AB7 /* MLNetworkDownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F95FC52649028E00955AB7 /* MLNetworkDownloadOperation.swift */; };
 		18FE75E5264669BB00342339 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE75E4264669BB00342339 /* AppDelegate.swift */; };
 		18FE75E7264669BB00342339 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE75E6264669BB00342339 /* SceneDelegate.swift */; };
 		18FE75EC264669BB00342339 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18FE75EA264669BB00342339 /* Main.storyboard */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		18F95FC52649028E00955AB7 /* MLNetworkDownloadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLNetworkDownloadOperation.swift; sourceTree = "<group>"; };
 		18FE75E1264669BB00342339 /* MLNetworkService.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MLNetworkService.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18FE75E4264669BB00342339 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18FE75E6264669BB00342339 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 			children = (
 				18FE763126466EDC00342339 /* MLNetworkTaskInfo.swift */,
 				18FE762C26466B5000342339 /* MLNetworkOperation.swift */,
+				18F95FC52649028E00955AB7 /* MLNetworkDownloadOperation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 				18FE75E5264669BB00342339 /* AppDelegate.swift in Sources */,
 				18FE75E7264669BB00342339 /* SceneDelegate.swift in Sources */,
 				18FE762826466B2700342339 /* MLNetworkTask.swift in Sources */,
+				18F95FC62649028E00955AB7 /* MLNetworkDownloadOperation.swift in Sources */,
 				18FE763226466EDC00342339 /* MLNetworkTaskInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
