@@ -34,33 +34,16 @@ class MLNetworkOperation: Operation {
     private lazy var tasks = [MLNetworkTaskInfo]()
     private var resumeCount: UInt = 0 {
         didSet {
-            let state: State = resumeCount > 0 ? .ready : (isSuspend ? .suspend : .cancel)
+            let state: State = resumeCount > 0 ? .ready : (
+                suspendCount > 0 ? .suspend : .cancel
+            )
             if state == .suspend && self.state != .suspend {
                 suspend()
             }else {
                 change(state: state)
             }
-//            if (state == self.state
-//                // 任务准备好之后，当前不是挂起状态时忽略状态更新
-//                || state == .ready && self.state != .suspend
-//            ) { return }
-//            switch state {
-//            case .suspend:// 任务没有挂起状态，需要直接调用方法
-//                suspend()
-//            // 可以直接通过更新值来切换状态
-//            case .ready: fallthrough
-//            case .cancel: fallthrough
-//            case .completed:
-//                self.state = state
-//            case .running: break // 不会直接设置 running
-//            }
         }
     }
-    
-    /// 标记任务是否运行过
-    private var _isAlreadyRun: Bool = false
-    /// 是否挂起
-    private var isSuspend: Bool { resumeCount == 0 && suspendCount > 0 }
     private var suspendCount: UInt = 0 {
         didSet {
             if suspendCount != oldValue {
@@ -68,39 +51,6 @@ class MLNetworkOperation: Operation {
             }
         }
     }
-    
-//    private var stateChangeKeyPath: KeyPath<MLNetworkOperation, Bool>?
-//    private var state: State = .suspend {
-//        willSet {
-//            if state == newValue { return }
-//            if newValue == .ready {
-//                // 准备完毕后，整体判断下是否准备完毕
-//                let isReady = self.isReady(for: newValue)
-//                let oldReady = super.isReady && _isReady
-//                if isReady == oldReady { return }
-//            }
-//
-//            if isExistedQueue {
-//                stateChangeKeyPath = keyPath(state: newValue)
-//                willChangeValue(for: stateChangeKeyPath!)
-//            }
-//        }
-//        didSet {
-//            for task in tasks {
-//                if task.isAutoChange { continue }
-//                task.state = taskState
-//            }
-//            _isReady = resumeCount > 0
-//            if !isExistedQueue {
-//                if state == .ready {
-//                    _ = delegate?.didIsRead(operation: self)
-//                }
-//                return
-//            }
-//            guard let stateChangeKeyPath = stateChangeKeyPath else { return }
-//            didChangeValue(for: stateChangeKeyPath)
-//        }
-//    }
     private var progressMonitorCount: Int = 0
     
     init(task: URLSessionTask) {
@@ -146,15 +96,9 @@ extension MLNetworkOperation: MLNetworkTaskInfoDelegate {
         case .completed: return .completed
         }
     }
-    func resume(task: MLNetworkTaskInfo) {
-        resumeCount += 1
-    }
-    func suspend(task: MLNetworkTaskInfo) {
-        suspendCount += 1
-    }
-    func cancel(task: MLNetworkTaskInfo) {
-        resumeCount -= 1
-    }
+    func resume(task: MLNetworkTaskInfo) { resumeCount += 1 }
+    func suspend(task: MLNetworkTaskInfo) { suspendCount += 1 }
+    func cancel(task: MLNetworkTaskInfo) { resumeCount -= 1 }
     func task(_ task: MLNetworkTaskInfo, progressMonitorDidChange isEnable: Bool) {
 //        var count = 0
 //        for task in tasks {
@@ -172,7 +116,6 @@ extension MLNetworkOperation {
     override var isFinished: Bool { _isFinished }
     
     override func start() {
-        _isAlreadyRun = true
         let state = self.state
         if state == .running || state == .cancel || state == .completed { return }
         task.resume()
