@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		18F95FC62649028E00955AB7 /* MLNetworkDownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F95FC52649028E00955AB7 /* MLNetworkDownloadOperation.swift */; };
+		18F95FEF264A208900955AB7 /* MLTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F95FEE264A208900955AB7 /* MLTask.swift */; };
+		18F95FF4264A211A00955AB7 /* MLDownloadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F95FF3264A211A00955AB7 /* MLDownloadTask.swift */; };
+		18F96005264BD75900955AB7 /* MLNetworkContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F96004264BD75900955AB7 /* MLNetworkContainer.swift */; };
+		18F9600A264BD91100955AB7 /* MLNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F96009264BD91100955AB7 /* MLNetworkManager.swift */; };
 		18FE75E5264669BB00342339 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE75E4264669BB00342339 /* AppDelegate.swift */; };
 		18FE75E7264669BB00342339 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE75E6264669BB00342339 /* SceneDelegate.swift */; };
 		18FE75EC264669BB00342339 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18FE75EA264669BB00342339 /* Main.storyboard */; };
@@ -42,7 +45,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		18F95FC52649028E00955AB7 /* MLNetworkDownloadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLNetworkDownloadOperation.swift; sourceTree = "<group>"; };
+		18F95FEE264A208900955AB7 /* MLTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLTask.swift; sourceTree = "<group>"; };
+		18F95FF3264A211A00955AB7 /* MLDownloadTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLDownloadTask.swift; sourceTree = "<group>"; };
+		18F96004264BD75900955AB7 /* MLNetworkContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLNetworkContainer.swift; sourceTree = "<group>"; };
+		18F96009264BD91100955AB7 /* MLNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLNetworkManager.swift; sourceTree = "<group>"; };
 		18FE75E1264669BB00342339 /* MLNetworkService.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MLNetworkService.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18FE75E4264669BB00342339 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18FE75E6264669BB00342339 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -90,6 +96,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		18F9600E264BDD4000955AB7 /* Public */ = {
+			isa = PBXGroup;
+			children = (
+				18FE762126466A6D00342339 /* MLNetworkService.swift */,
+				18FE762726466B2700342339 /* MLNetworkTask.swift */,
+				18F96009264BD91100955AB7 /* MLNetworkManager.swift */,
+			);
+			path = Public;
+			sourceTree = "<group>";
+		};
 		18FE75D8264669BB00342339 = {
 			isa = PBXGroup;
 			children = (
@@ -148,21 +164,22 @@
 		18FE762026466A4D00342339 /* MLNetworkService */ = {
 			isa = PBXGroup;
 			children = (
-				18FE762626466B0A00342339 /* Model */,
-				18FE762126466A6D00342339 /* MLNetworkService.swift */,
-				18FE762726466B2700342339 /* MLNetworkTask.swift */,
+				18F9600E264BDD4000955AB7 /* Public */,
+				18FE762626466B0A00342339 /* Internal */,
 			);
 			path = MLNetworkService;
 			sourceTree = "<group>";
 		};
-		18FE762626466B0A00342339 /* Model */ = {
+		18FE762626466B0A00342339 /* Internal */ = {
 			isa = PBXGroup;
 			children = (
+				18F96004264BD75900955AB7 /* MLNetworkContainer.swift */,
 				18FE763126466EDC00342339 /* MLNetworkTaskInfo.swift */,
 				18FE762C26466B5000342339 /* MLNetworkOperation.swift */,
-				18F95FC52649028E00955AB7 /* MLNetworkDownloadOperation.swift */,
+				18F95FEE264A208900955AB7 /* MLTask.swift */,
+				18F95FF3264A211A00955AB7 /* MLDownloadTask.swift */,
 			);
-			path = Model;
+			path = Internal;
 			sourceTree = "<group>";
 		};
 		18FE763E264679E300342339 /* Views */ = {
@@ -316,11 +333,14 @@
 				18FE763A264679AB00342339 /* TableViewController.swift in Sources */,
 				18FE762D26466B5100342339 /* MLNetworkOperation.swift in Sources */,
 				18FE764926467A2100342339 /* TaskItem.swift in Sources */,
+				18F96005264BD75900955AB7 /* MLNetworkContainer.swift in Sources */,
+				18F95FF4264A211A00955AB7 /* MLDownloadTask.swift in Sources */,
+				18F95FEF264A208900955AB7 /* MLTask.swift in Sources */,
 				18FE75E5264669BB00342339 /* AppDelegate.swift in Sources */,
 				18FE75E7264669BB00342339 /* SceneDelegate.swift in Sources */,
 				18FE762826466B2700342339 /* MLNetworkTask.swift in Sources */,
-				18F95FC62649028E00955AB7 /* MLNetworkDownloadOperation.swift in Sources */,
 				18FE763226466EDC00342339 /* MLNetworkTaskInfo.swift in Sources */,
+				18F9600A264BD91100955AB7 /* MLNetworkManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,8 +11,10 @@ class TableViewController: UITableViewController {
     
     lazy var taskList: [TaskItem] = {
         return [
-            TaskItem(name: "任务1", task: service.addDownloadTask(url: URL(string: "https://dl.motrix.app/release/Motrix-1.5.15.dmg")!)),
-            TaskItem(name: "任务2", task: service.addDownloadTask(url: URL(string: "https://dl.motrix.app/release/Motrix-1.5.15.dmg")!)),
+            TaskItem(name: "任务1", task: try! service.addDownloadTask(url: URL(string: "https://dl.motrix.app/release/Motrix-1.5.15.dmg")!)),
+            TaskItem(name: "任务2", task: try! service.addDownloadTask(url: URL(string: "https://dl.motrix.app/release/Motrix-1.5.15.dmg")!)),
+            TaskItem(name: "任务3", task: try! service.addDownloadTask(url: URL(string: "https://download.jetbrains.com.cn/idea/ideaIU-2021.1.1.dmg")!)),
+            TaskItem(name: "任务4", task: try! service.addDownloadTask(url: URL(string: "https://download.jetbrains.com.cn/idea/ideaIU-2021.1.1.dmg")!)),
         ]
     }()
     lazy var service = MLNetworkService()
@@ -43,9 +45,26 @@ class TableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let identifier = "TaskTableViewCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as! TaskTableViewCell
-        
         let item = taskList[indexPath.row]
         var task = item.task
+        func changeButtonTitle(state: MLNetworkTaskState) {
+            DispatchQueue.main.async {
+                let title: String
+                switch state {
+                case .ready:
+                    title = "等待下载中"
+                case .running:
+                    title = "正在下载"
+                case .suspend:
+                    title = "已暂停"
+                case .cancel:
+                    title = "已取消"
+                case .completed:
+                    title = "已完成"
+                }
+                cell.actionBtn.setTitle(title, for: .normal)
+            }
+        }
         task.progress = {
             (bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) in
             DispatchQueue.main.async {
@@ -53,20 +72,23 @@ class TableViewController: UITableViewController {
                 cell.progressView.progress = Float(totalBytesWritten) / Float(totalBytesExpectedToWrite)
             }
         }
+        task.didChangeState = {
+            changeButtonTitle(state: $0)
+        }
         cell.didChangeDownloadState = {
-            (isDownload) in
-            let state = task.state
-            if isDownload {
-                if state == .suspend || state == .cancel {
-                    task.resume()
-                }
-            }else {
-                if state == .running {
-                    task.suspend()
-                }
+            switch task.state {
+            case .ready: fallthrough
+            case .running:
+                try? task.suspend()
+            case .suspend:
+                try? task.resume()
+            case .cancel: break
+            case .completed:break
             }
         }
         cell.nameLabel?.text = item.name
+        changeButtonTitle(state: task.state)
+        
         return cell
     }
     
