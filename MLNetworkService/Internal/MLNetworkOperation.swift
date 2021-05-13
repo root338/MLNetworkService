@@ -33,9 +33,11 @@ class MLNetworkOperation: Operation {
         super.init()
     }
     
-    lazy private var lock = NSLock()
+    private var lock = NSRecursiveLock()
     private(set) var state: MLNetworkTaskState = .suspend {
         didSet {
+            lock.lock()
+            defer { lock.unlock() }
             if state == oldValue, monitorStateCount == 0 { return }
             for task in tasks {
                 guard let didChangeState = task.didChangeState,
@@ -60,6 +62,8 @@ class MLNetworkOperation: Operation {
 //MARK:- Public Method
 extension MLNetworkOperation {
     func getNewTask() -> MLNetworkTask {
+        lock.lock()
+        defer { lock.unlock() }
         let task = MLNetworkTaskInfo(identifier:  "\(self.task.taskIdentifier)-\(taskIndex)")
         taskIndex += 1
         task.delegate = self
@@ -67,6 +71,8 @@ extension MLNetworkOperation {
         return task
     }
     func getNewOperation(task: (URLSessionTask, Data?) -> URLSessionTask) -> Self {
+        lock.lock()
+        defer { lock.unlock() }
         let op = type(of: self).init(task: task(self.task, resumeData)) as MLNetworkOperation
         op.delegate = delegate
         for task in tasks {
@@ -87,6 +93,8 @@ extension MLNetworkOperation {
     
     @available(iOS, introduced: 2.0, deprecated: 11.0, message: "iOS 11 以后内部可以直接使用 URLSessionTask 下的 progress 属性")
     func didChangeProgress(didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
+        lock.lock()
+        defer { lock.unlock() }
         for task in tasks {
             task.progress?(bytesWritten, totalBytesWritten, totalBytesExpectedToWrite)
         }
@@ -94,14 +102,15 @@ extension MLNetworkOperation {
 }
 //MARK:- Protocol
 extension MLNetworkOperation: MLNetworkTaskInfoDelegate {
-    func changeState(to toState: MLNetworkTaskState, from oldState: MLNetworkTaskState?) {
+    func changeState(to toState: MLNetworkTaskState, from oldState: MLNetworkTaskState?) throws {
+        lock.lock()
+        defer { lock.unlock() }
         if state == .completed {
-            assert(false, "已完成的任务无法再执行操作")
-            return
+            throw MLNetworkTaskError.notSupportOperation(msg: "已完成的任务无法再执行操作")
         }
         if let fromState = oldState, fromState == toState { return }
         var count: (resume: Int, suspend: Int, cancel: Int) = (0,0,0)
-        func changeCount(isNew: Bool) {
+        func changeCount(isNew: Bool) throws {
             if !isNew && oldState == nil { return }
             switch (isNew ? toState : oldState!) {
             case .ready:
@@ -112,14 +121,13 @@ extension MLNetworkOperation: MLNetworkTaskInfoDelegate {
                 count.cancel = isNew ? 1 : -1
             case .completed: fallthrough
             case .running:
-                assert(false, "不支持直接设置")
+                throw MLNetworkTaskError.notSupportOperation(msg: "不支持直接设置 \(toState)")
             }
         }
-        changeCount(isNew: true)
-        changeCount(isNew: false)
+        try changeCount(isNew: true)
+        try changeCount(isNew: false)
         resumeCount = resumeCount + count.resume - count.cancel
         suspendCount = suspendCount + count.suspend
-        print("resumeCount: \(resumeCount), suspendCount:\(suspendCount)")
         let state: MLNetworkTaskState = resumeCount > 0 ? .ready : (
             suspendCount > 0 ? .suspend : .cancel
         )
@@ -130,7 +138,6 @@ extension MLNetworkOperation: MLNetworkTaskInfoDelegate {
         }else {
             change(state: state)
         }
-        return
     }
     
     func task(_ task: MLNetworkTaskInfo, monitorProgress isEnable: Bool) {
@@ -138,22 +145,44 @@ extension MLNetworkOperation: MLNetworkTaskInfoDelegate {
 //        for task in tasks {
 //            count += (task.progress != nil ? 1 : 0)
 //        }
+        lock.lock()
+        defer { lock.unlock() }
         // 在 MLNetworkTaskInfo 中只有状态变化时才回调
         monitorProgressCount += (isEnable ? 1 : 0)
     }
     func task(_ task: MLNetworkTaskInfo, monitorState isEnable: Bool) {
+        lock.lock()
+        defer { lock.unlock() }
         monitorStateCount += (isEnable ? 1 : 0)
     }
 }
 
 //MARK:- Status Control
 extension MLNetworkOperation {
-    override var isExecuting: Bool { _isExecuting }
-    override var isReady: Bool { super.isReady && _isReady }
-    override var isCancelled: Bool { _isCancelled }
-    override var isFinished: Bool { _isFinished }
+    override var isExecuting: Bool {
+        lock.lock()
+        defer { lock.unlock() }
+        return _isExecuting
+    }
+    override var isReady: Bool {
+        lock.lock()
+        defer { lock.unlock() }
+        return super.isReady && _isReady
+    }
+    override var isCancelled: Bool {
+        lock.lock()
+        defer { lock.unlock() }
+        return _isCancelled
+    }
+    override var isFinished: Bool {
+        lock.lock()
+        defer { lock.unlock() }
+        return _isFinished
+    }
     
     override func start() {
+        lock.lock()
+        defer { lock.unlock() }
         _isStarted = true
         if state != .ready { return }
         task.resume()
@@ -171,6 +200,8 @@ extension MLNetworkOperation {
     }
     
     private func cancel(isSuspend: Bool) {
+        lock.lock()
+        defer { lock.unlock() }
         if state == .cancel || state == .completed { return }
         if isSuspend && state == .suspend { return }
 //--------------------------------------------------------------
@@ -198,9 +229,13 @@ extension MLNetworkOperation {
 private extension MLNetworkOperation {
     
     func isReady(for state: MLNetworkTaskState) -> Bool {
+        lock.lock()
+        defer { lock.unlock() }
         return super.isReady && resumeCount > 0 && state == .ready
     }
     func change(state: MLNetworkTaskState) {
+        lock.lock()
+        defer { lock.unlock() }
         if state == self.state { return }
         if state == .ready && _isCancelled && _isSuspend {
             // 恢复之前的下载时需要重新添加任务到队列

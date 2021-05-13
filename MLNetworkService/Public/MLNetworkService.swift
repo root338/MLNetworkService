@@ -26,7 +26,9 @@ public class MLNetworkService: NSObject {
     private lazy var container: MLNetworkContainer = {
         return MLNetworkContainer()
     }()
-    private lazy var containerSet: [String: MLNetworkContainer] = [:]
+    private lazy var containerSet: [String: MLNetworkContainer] = {
+        [:]
+    }()
 }
 //MARK:- control Task
 public extension MLNetworkService {

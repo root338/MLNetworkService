@@ -28,7 +28,9 @@ public enum MLNetworkTaskError: Error {
     /// 任务已完成
     case isCompleted
     /// 不支持操作
-    case notSupportOperation
+    case notSupportOperation(msg: String)
+    /// 需要等待操作结束，一般是操作触发时上一个操作还没有执行完毕
+    case needWaitOperatedEnd
 }
 
 public protocol MLNetworkTask {
@@ -36,10 +38,14 @@ public protocol MLNetworkTask {
     var request: URLRequest? { get }
     var state: MLNetworkTaskState { get }
     
+//    typealias MLNetworkTaskResultCompleted = (Result<Bool, MLNetworkServiceError>) -> Void
+    typealias MLNetworkTaskProgress = (_ didWriteData: Int64, _ totalBytesWritten: Int64, _ totalBytesExpectedToWrite: Int64) -> Void
+    typealias MLNetworkTaskStatusChangeCallback = (MLNetworkTaskState) -> Void
+    
     /// 进度监听回调，不保证在主线程
-    var progress: ((_ didWriteData: Int64, _ totalBytesWritten: Int64, _ totalBytesExpectedToWrite: Int64) -> Void)? { get set }
+    var progress: MLNetworkTaskProgress? { get set }
     /// 状态监听回调，不保证在主线程
-    var didChangeState: ((MLNetworkTaskState) -> Void)? { get set }
+    var didChangeState: MLNetworkTaskStatusChangeCallback? { get set }
     
     /// 恢复任务，执行错误时报 MLNetworkTaskError 异常
     func resume() throws
