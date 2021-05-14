@@ -9,8 +9,8 @@ import UIKit
 
 class TaskItem: NSObject {
     let name: String
-    var task: MLNetworkTask
-    init(name: String, task: MLNetworkTask) {
+    var task: MLNetworkDownloadTask
+    init(name: String, task: MLNetworkDownloadTask) {
         self.name = name
         self.task = task
         super.init()

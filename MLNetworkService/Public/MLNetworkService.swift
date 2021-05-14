@@ -32,12 +32,19 @@ public class MLNetworkService: NSObject {
 }
 //MARK:- control Task
 public extension MLNetworkService {
-    /// 添加下载任务，必须调用 resume 才开始任务
-    func addDownloadTask(url: URL, name: String? = nil) throws -> MLNetworkTask {
-        return try container(name: name).addDownloadTask(url: url)
+    /// 添加下载任务，必须调用 resume 才能开始任务
+    /// - Parameters:
+    ///   - url: 下载链接
+    ///   - serviceName: 使用指定的网络服务执行下载
+    ///   - completion: 任务执行结果回调
+    /// - Throws: 会抛出 MLNetworkServiceError 异常
+    /// - Returns: 返回创建的任务对象
+    func addDownloadTask(url: URL, serviceName: String? = nil, completion: MLNetworkDownloadCompletion? = nil) throws -> MLNetworkDownloadTask {
+        return try container(name: serviceName).addDownloadTask(url: url, completion: completion)
     }
-    func addDownloadTaskAndResume(url: URL, name: String? = nil) throws -> MLNetworkTask {
-        return try container(name: name).addDownloadTaskAndResume(url: url)
+    /// 添加下载任务并直接进行下载
+    func addDownloadTaskAndResume(url: URL, serviceName: String? = nil, completion: MLNetworkDownloadCompletion? = nil) throws -> MLNetworkDownloadTask {
+        return try container(name: serviceName).addDownloadTaskAndResume(url: url, completion: completion)
     }
     
 }

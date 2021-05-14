@@ -19,6 +19,7 @@ class MLNetworkOperation: Operation {
     var taskIdentifier : Int { task.taskIdentifier }
     /// 开启进度监听
     var isEnableProgressMonitor: Bool { monitorProgressCount > 0 }
+    var downloadCompletion: MLNetworkDownloadCompletion? = nil
     
     let task: URLSessionTask
     private lazy var tasks = [MLNetworkTaskInfo]()
@@ -56,12 +57,13 @@ class MLNetworkOperation: Operation {
     private var _isCancelled: Bool = false
     private var _isExecuting: Bool = false
     
+    private var downloadResult: MLNetworkDownloadResult?
     //MARK:- 临时处理
     private var resumeData: Data?
 }
 //MARK:- Public Method
 extension MLNetworkOperation {
-    func getNewTask() -> MLNetworkTask {
+    func getNewTask() -> MLNetworkTaskInfo {
         lock.lock()
         defer { lock.unlock() }
         let task = MLNetworkTaskInfo(identifier:  "\(self.task.taskIdentifier)-\(taskIndex)")
@@ -191,8 +193,12 @@ extension MLNetworkOperation {
     func suspend() {
         cancel(isSuspend: true)
     }
-    func downloadTaskFinish(result: Result<URL, Error>) {
+    func downloadTaskFinish(result: MLNetworkDownloadResult) {
+        lock.lock()
+        defer { lock.unlock() }
+        downloadResult = result
         change(state: .completed)
+        downloadCompletion?(result)
     }
     
     override func cancel() {
@@ -211,7 +217,7 @@ extension MLNetworkOperation {
         if !isSuspend {
             task.cancel()
         }else {
-            // 挂起时直接调用 cancel(byProducingResumeData:) 方法是因为 suspend() 方法会导致下载任务超时而失败
+            // 挂起时直接调用 cancel(byProducingResumeData:) 方法是因为使用 suspend() 方法会导致下载任务超时而失败
             if let task = self.task as? URLSessionDownloadTask {
                 task.cancel {[weak self] (data) in
                     guard let weak = self else { return }

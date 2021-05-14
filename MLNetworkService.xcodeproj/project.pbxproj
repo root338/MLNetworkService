@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1854E67E264E1E82008EFEE5 /* MLDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854E67D264E1E82008EFEE5 /* MLDataService.swift */; };
+		1854E686264E1E9B008EFEE5 /* MLSQLiteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854E685264E1E9B008EFEE5 /* MLSQLiteService.swift */; };
+		1854E69E264E58BE008EFEE5 /* MLNetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854E69D264E58BE008EFEE5 /* MLNetworkResult.swift */; };
+		1854E6A3264E8410008EFEE5 /* MLNetworkResultInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854E6A2264E8410008EFEE5 /* MLNetworkResultInfo.swift */; };
 		18F95FEF264A208900955AB7 /* MLTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F95FEE264A208900955AB7 /* MLTask.swift */; };
 		18F95FF4264A211A00955AB7 /* MLDownloadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F95FF3264A211A00955AB7 /* MLDownloadTask.swift */; };
 		18F96005264BD75900955AB7 /* MLNetworkContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F96004264BD75900955AB7 /* MLNetworkContainer.swift */; };
@@ -45,6 +49,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1854E67D264E1E82008EFEE5 /* MLDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLDataService.swift; sourceTree = "<group>"; };
+		1854E685264E1E9B008EFEE5 /* MLSQLiteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSQLiteService.swift; sourceTree = "<group>"; };
+		1854E69D264E58BE008EFEE5 /* MLNetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLNetworkResult.swift; sourceTree = "<group>"; };
+		1854E6A2264E8410008EFEE5 /* MLNetworkResultInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLNetworkResultInfo.swift; sourceTree = "<group>"; };
 		18F95FEE264A208900955AB7 /* MLTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLTask.swift; sourceTree = "<group>"; };
 		18F95FF3264A211A00955AB7 /* MLDownloadTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLDownloadTask.swift; sourceTree = "<group>"; };
 		18F96004264BD75900955AB7 /* MLNetworkContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLNetworkContainer.swift; sourceTree = "<group>"; };
@@ -96,11 +104,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1854E67C264E1E5A008EFEE5 /* FileManger */ = {
+			isa = PBXGroup;
+			children = (
+				1854E67D264E1E82008EFEE5 /* MLDataService.swift */,
+				1854E685264E1E9B008EFEE5 /* MLSQLiteService.swift */,
+			);
+			path = FileManger;
+			sourceTree = "<group>";
+		};
 		18F9600E264BDD4000955AB7 /* Public */ = {
 			isa = PBXGroup;
 			children = (
 				18FE762126466A6D00342339 /* MLNetworkService.swift */,
 				18FE762726466B2700342339 /* MLNetworkTask.swift */,
+				1854E69D264E58BE008EFEE5 /* MLNetworkResult.swift */,
 				18F96009264BD91100955AB7 /* MLNetworkManager.swift */,
 			);
 			path = Public;
@@ -176,8 +194,10 @@
 				18F96004264BD75900955AB7 /* MLNetworkContainer.swift */,
 				18FE763126466EDC00342339 /* MLNetworkTaskInfo.swift */,
 				18FE762C26466B5000342339 /* MLNetworkOperation.swift */,
+				1854E6A2264E8410008EFEE5 /* MLNetworkResultInfo.swift */,
 				18F95FEE264A208900955AB7 /* MLTask.swift */,
 				18F95FF3264A211A00955AB7 /* MLDownloadTask.swift */,
+				1854E67C264E1E5A008EFEE5 /* FileManger */,
 			);
 			path = Internal;
 			sourceTree = "<group>";
@@ -328,10 +348,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1854E67E264E1E82008EFEE5 /* MLDataService.swift in Sources */,
 				18FE764026467A0500342339 /* TaskTableViewCell.swift in Sources */,
+				1854E69E264E58BE008EFEE5 /* MLNetworkResult.swift in Sources */,
 				18FE762226466A6D00342339 /* MLNetworkService.swift in Sources */,
+				1854E686264E1E9B008EFEE5 /* MLSQLiteService.swift in Sources */,
 				18FE763A264679AB00342339 /* TableViewController.swift in Sources */,
 				18FE762D26466B5100342339 /* MLNetworkOperation.swift in Sources */,
+				1854E6A3264E8410008EFEE5 /* MLNetworkResultInfo.swift in Sources */,
 				18FE764926467A2100342339 /* TaskItem.swift in Sources */,
 				18F96005264BD75900955AB7 /* MLNetworkContainer.swift in Sources */,
 				18F95FF4264A211A00955AB7 /* MLDownloadTask.swift in Sources */,

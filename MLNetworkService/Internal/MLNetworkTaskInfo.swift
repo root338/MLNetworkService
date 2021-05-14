@@ -11,13 +11,15 @@ protocol MLNetworkTaskInfoDelegate: NSObjectProtocol {
     var task: URLSessionTask { get }
     var state: MLNetworkTaskState { get }
     func changeState(to toState: MLNetworkTaskState, from oldState: MLNetworkTaskState?) throws
-    func task(_ task: MLNetworkTaskInfo, monitorProgress isEnable: Bool)
     func task(_ task: MLNetworkTaskInfo, monitorState isEnable: Bool)
+    
+    func task(_ task: MLNetworkTaskInfo, monitorProgress isEnable: Bool)
 }
 
 extension MLNetworkTaskInfo {
     //MARK:- MLNetworkTask
     var request: URLRequest? { delegate?.task.originalRequest }
+    var response: URLResponse? { delegate?.task.response }
     var state: MLNetworkTaskState {
         stateGetSemaphore.wait()
         defer {
@@ -31,40 +33,21 @@ extension MLNetworkTaskInfo {
         }
         return state
     }
-    var progress: MLNetworkTaskProgress? {
-        get {
-            monitorControlSemaphore.wait()
-            let progress = _progress
-            monitorControlSemaphore.signal()
-            return progress
-        }
-        set {
-            monitorControlSemaphore.wait()
-            let oldIsEnable = _progress != nil
-            let isEnable = newValue != nil
-            _progress = newValue
-            if oldIsEnable != isEnable {
-                delegate?.task(self, monitorProgress: isEnable)
-            }
-            monitorControlSemaphore.signal()
-        }
-    }
     var didChangeState: MLNetworkTaskStatusChangeCallback? {
         get {
             monitorControlSemaphore.wait()
-            let callback = _didChangeState
-            monitorControlSemaphore.signal()
-            return callback
+            defer { monitorControlSemaphore.signal() }
+            return _didChangeState
         }
         set {
             monitorControlSemaphore.wait()
+            defer { monitorControlSemaphore.signal() }
             let oldIsEnable = _didChangeState != nil
             let isEnable = newValue != nil
             _didChangeState = newValue
             if oldIsEnable != isEnable {
                 delegate?.task(self, monitorState: isEnable)
             }
-            monitorControlSemaphore.signal()
         }
     }
     
@@ -76,6 +59,28 @@ extension MLNetworkTaskInfo {
     }
     func cancel() throws {
         try operated(state: .cancel) { _ in true }
+    }
+    //MARK:- MLNetworkDownloadTask
+    var progress: MLNetworkTaskProgress? {
+        get {
+            monitorControlSemaphore.wait()
+            defer { monitorControlSemaphore.signal() }
+            return _progress
+        }
+        set {
+            monitorControlSemaphore.wait()
+            defer { monitorControlSemaphore.signal() }
+            let oldIsEnable = _progress != nil
+            let isEnable = newValue != nil
+            _progress = newValue
+            if oldIsEnable != isEnable {
+                delegate?.task(self, monitorProgress: isEnable)
+            }
+        }
+    }
+    var result: MLNetworkDownloadResult? {
+        if state != .completed { return nil }
+        return nil
     }
 }
 
@@ -90,7 +95,7 @@ extension MLNetworkTaskInfo {
     }
 }
 
-class MLNetworkTaskInfo: NSObject, MLNetworkTask {
+class MLNetworkTaskInfo: NSObject, MLNetworkTask, MLNetworkDownloadTask {
     
     let identifier: String
     weak var delegate: MLNetworkTaskInfoDelegate?
@@ -101,7 +106,7 @@ class MLNetworkTaskInfo: NSObject, MLNetworkTask {
     }
     
     /// 监听信号量
-    private lazy var monitorControlSemaphore: DispatchSemaphore = {
+    fileprivate lazy var monitorControlSemaphore: DispatchSemaphore = {
         DispatchSemaphore(value: 1)
     }()
     /// 任务操作信号量
@@ -164,3 +169,7 @@ private extension MLNetworkTaskInfo {
         }
     }
 }
+
+//class MLNetworkDownloadTaskInfo: MLNetworkTaskInfo, MLNetworkDownloadTask {
+//
+//}

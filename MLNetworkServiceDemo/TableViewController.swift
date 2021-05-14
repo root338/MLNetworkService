@@ -10,8 +10,16 @@ import UIKit
 class TableViewController: UITableViewController {
     
     lazy var taskList: [TaskItem] = {
+        
         return [
-            TaskItem(name: "任务1", task: try! service.addDownloadTask(url: URL(string: "https://dl.motrix.app/release/Motrix-1.5.15.dmg")!)),
+            TaskItem(name: "任务1", task: try! service.addDownloadTask(url: URL(string: "https://dl.motrix.app/release/Motrix-1.5.15.dmg")!, completion: { (result) in
+                switch result {
+                case .success(let result):
+                    print(result)
+                case .failure(let err):
+                    print(err)
+                }
+            })),
             TaskItem(name: "任务2", task: try! service.addDownloadTask(url: URL(string: "https://dl.motrix.app/release/Motrix-1.5.15.dmg")!)),
             TaskItem(name: "任务3", task: try! service.addDownloadTask(url: URL(string: "https://download.jetbrains.com.cn/idea/ideaIU-2021.1.1.dmg")!)),
             TaskItem(name: "任务4", task: try! service.addDownloadTask(url: URL(string: "https://download.jetbrains.com.cn/idea/ideaIU-2021.1.1.dmg")!)),

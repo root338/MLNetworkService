@@ -36,14 +36,12 @@ public enum MLNetworkTaskError: Error {
 public protocol MLNetworkTask {
     var identifier: String { get }
     var request: URLRequest? { get }
+    var response: URLResponse? { get }
     var state: MLNetworkTaskState { get }
     
 //    typealias MLNetworkTaskResultCompleted = (Result<Bool, MLNetworkServiceError>) -> Void
-    typealias MLNetworkTaskProgress = (_ didWriteData: Int64, _ totalBytesWritten: Int64, _ totalBytesExpectedToWrite: Int64) -> Void
     typealias MLNetworkTaskStatusChangeCallback = (MLNetworkTaskState) -> Void
     
-    /// 进度监听回调，不保证在主线程
-    var progress: MLNetworkTaskProgress? { get set }
     /// 状态监听回调，不保证在主线程
     var didChangeState: MLNetworkTaskStatusChangeCallback? { get set }
     
@@ -55,3 +53,10 @@ public protocol MLNetworkTask {
     func cancel() throws
 }
 
+public protocol MLNetworkDownloadTask: MLNetworkTask {
+    typealias MLNetworkTaskProgress = (_ didWriteData: Int64, _ totalBytesWritten: Int64, _ totalBytesExpectedToWrite: Int64) -> Void
+    /// 进度监听回调，不保证在主线程
+    var progress: MLNetworkTaskProgress? { get set }
+    /// 任务完成结果
+    var result: MLNetworkDownloadResult? { get }
+}

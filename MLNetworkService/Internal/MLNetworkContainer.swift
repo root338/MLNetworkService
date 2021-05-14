@@ -10,7 +10,7 @@ import Foundation
 class MLNetworkContainer: NSObject, MLNetworkManager {
     let name: String?
     private lazy var session: URLSession = {
-        let session = URLSession(configuration: seesionConfiguration?() ?? .default, delegate: self, delegateQueue: nil)
+        let session = URLSession(configuration: .background(withIdentifier: "com.MLNetworkService\(name != nil ? ("." + name!) : "").download"), delegate: self, delegateQueue: nil)
         seesionConfiguration = nil
         return session
     }()
@@ -32,14 +32,14 @@ class MLNetworkContainer: NSObject, MLNetworkManager {
 
 extension MLNetworkContainer {
     /// 添加下载任务，必须调用 resume 才开始任务
-    func addDownloadTask(url: URL) -> MLNetworkTask {
+    func addDownloadTask(url: URL, completion: MLNetworkDownloadCompletion? = nil) -> MLNetworkDownloadTask {
         let task = session.downloadTask(with: url)
         let opertion = MLNetworkOperation(task: task)
         opertion.delegate = self
         operationQueue.addOperation(opertion)
         return opertion.getNewTask()
     }
-    func addDownloadTaskAndResume(url: URL) -> MLNetworkTask {
+    func addDownloadTaskAndResume(url: URL, completion: MLNetworkDownloadCompletion? = nil) -> MLNetworkDownloadTask {
         let task = session.downloadTask(with: url)
         let opertion = MLNetworkOperation(task: task)
         opertion.delegate = self
@@ -47,6 +47,7 @@ extension MLNetworkContainer {
         try? downloadTask.resume()
         return downloadTask
     }
+    
 }
 
 extension MLNetworkContainer {
@@ -72,10 +73,14 @@ extension MLNetworkContainer: URLSessionDownloadDelegate {
     //MARK:- URLSessionDownloadDelegate
     public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
         guard let operation = runningOperationSet[downloadTask.taskIdentifier] else { return }
-        operation.downloadTaskFinish(result: .success(location))
+        operation.downloadTaskFinish(
+            result: .success(
+                MLNetworkDownloadSuccessResultInfo(
+                    location: location, response: downloadTask.response
+                )))
     }
     public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
-//        print("bytesWritten: \(bytesWritten), totalBytesWritten: \(totalBytesWritten), totalBytesExpectedToWrite: \(totalBytesExpectedToWrite)")
+        print("bytesWritten: \(bytesWritten), totalBytesWritten: \(totalBytesWritten), totalBytesExpectedToWrite: \(totalBytesExpectedToWrite)")
         if let operation = runningOperationSet[downloadTask.taskIdentifier],
            operation.isEnableProgressMonitor {
             operation.didChangeProgress(didWriteData: bytesWritten, totalBytesWritten: totalBytesWritten, totalBytesExpectedToWrite: totalBytesExpectedToWrite)
